@@ -81,6 +81,9 @@ private class FilterTagConsumer<T>(val downstream: TagConsumer<T>, val predicate
     }
 
     override fun finalize(): T = downstream.finalize()
+
+    @ExperimentalKotlinxHtmlApi
+    override val head: Any? get() = downstream.head
 }
 
 fun <T> TagConsumer<T>.filter(predicate: PredicateResults.(Tag) -> PredicateResult): TagConsumer<T> =

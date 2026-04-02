@@ -12,7 +12,12 @@ interface TagConsumer<out R> {
     fun onTagContentUnsafe(block: Unsafe.() -> Unit)
     fun onTagComment(content: CharSequence)
     fun finalize(): R
+    @ExperimentalKotlinxHtmlApi
+    val head: Any?
 }
+
+@RequiresOptIn
+annotation class ExperimentalKotlinxHtmlApi
 
 @HtmlTagMarker
 interface Tag {

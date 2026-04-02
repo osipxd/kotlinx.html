@@ -2,6 +2,7 @@ package kotlinx.html.dom
 
 import kotlinx.html.DefaultUnsafe
 import kotlinx.html.Entities
+import kotlinx.html.ExperimentalKotlinxHtmlApi
 import kotlinx.html.Tag
 import kotlinx.html.TagConsumer
 import kotlinx.html.Unsafe
@@ -113,11 +114,12 @@ class JSDOMBuilder<out R : HTMLElement>(val document : Document) : TagConsumer<R
 
     override fun finalize(): R = lastLeaved?.asR() ?: throw IllegalStateException("We can't finalize as there was no tags")
 
+    @ExperimentalKotlinxHtmlApi
+    override val head: HTMLElement get() = path.last()
+
     @Suppress("UnsafeCastFromDynamic")
     private fun HTMLElement.asR(): R = this.asDynamic()
-
 }
-
 
  fun Document.createTree() : TagConsumer<HTMLElement> = JSDOMBuilder(this)
  val Document.create : TagConsumer<HTMLElement>

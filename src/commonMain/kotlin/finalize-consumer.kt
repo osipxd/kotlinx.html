@@ -26,6 +26,9 @@ class FinalizeConsumer<F, T>(val downstream: TagConsumer<F>, val block: (F, Bool
     override fun onTagComment(content: CharSequence) = downstream.onTagComment(content)
 
     override fun finalize() = block(downstream.finalize(), level > 0)
+
+    @ExperimentalKotlinxHtmlApi
+    override val head: Any? get() = downstream.head
 }
 
 public fun <T> TagConsumer<T>.onFinalize(block: (from: T, partial: Boolean) -> Unit): TagConsumer<T> =
