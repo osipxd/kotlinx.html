@@ -34,7 +34,7 @@ if (hasProperty("release")) {
  */
 if (hasProperty("versionTag")) {
     val versionString = version as String
-    val versionTag = properties["versionTag"]
+    val versionTag = findProperty("versionTag")
     if (versionString.endsWith("-SNAPSHOT")) {
         version = versionString.replace("-SNAPSHOT", "-$versionTag")
         logger.lifecycle("Project will be built with version '$version'.")
@@ -44,7 +44,7 @@ if (hasProperty("versionTag")) {
 }
 
 if (hasProperty("releaseVersion")) {
-    version = properties["releaseVersion"] as String
+    version = findProperty("releaseVersion") as String
 }
 
 val publishingUser = System.getenv("PUBLISHING_USER")
@@ -238,13 +238,13 @@ fun MavenPomFile.config(config: MavenPomFile.() -> Unit = {}) {
         developer {
             name = "Sergey Mashkov"
             organization = "JetBrains s.r.o."
-            roles to "developer"
+            roles.add("developer")
         }
 
         developer {
             name = "Anton Dmitriev"
             organization = "JetBrains s.r.o."
-            roles to "developer"
+            roles.add("developer")
         }
     }
 }
