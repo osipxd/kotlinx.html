@@ -66,10 +66,6 @@ publishing {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 val emptyJar = tasks.register<org.gradle.jvm.tasks.Jar>("emptyJar") {
     archiveAppendix.set("empty")
 }
