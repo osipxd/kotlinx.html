@@ -14,6 +14,7 @@ on:
     paths:
       - '**.gradle.kts'
       - '**.properties'
+      - 'api/**'
       - 'src/**'
       - '.github/workflows/**'
     types: [opened, synchronize, reopened]
@@ -62,3 +63,20 @@ jobs:
       uses: gradle/actions/setup-gradle@v6
     - name: Run web tests
       run: ./gradlew jsBrowserTest wasmJsBrowserTest
+
+  api:
+    name: API check
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v7
+    - name: Set up JDKs 8 and 21
+      uses: actions/setup-java@v5
+      with:
+        java-version: |
+          8
+          21
+        distribution: 'zulu'
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v6
+    - name: Check API
+      run: ./gradlew checkLegacyAbi
